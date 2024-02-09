@@ -1,0 +1,119 @@
+
+
+version: '3.9'
+
+#networks:
+#  dev_network:
+
+volumes:
+  static:
+  media:
+  nginx_conf:
+  smtp4dev-data:
+  db_volume:
+
+services:
+
+  db:
+    image: postgres:14.3-alpine3.15
+    ports:
+      - "5431:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postpass
+      POSTGRES_DB: upload_data
+    volumes:
+      - db_volume:/var/lib/postgresql/data
+
+    #networks:
+    #  dev_network:
+    #    aliases:
+    #      - db-main
+
+#  app:
+#    build:
+#      context: .
+#    environment:
+#      PG_USER: postgres
+#      PG_PASSWORD: postpass
+#      PG_NAME: orders_diploma
+#      PG_HOST: db
+#      PG_PORT: 5432
+#      SMTP_SERVER: smtp4dev
+#      SMTP_PORT: 25
+#      REDIS_HOST: redis
+#    ports:
+#      - "8080:8080"
+#    depends_on:
+#      - db
+#      - smtp4dev
+#      - celery
+
+
+#    restart:
+#      always
+#    volumes:
+#      - static:/code/static
+#      - media:/code/media
+#      - nginx_conf:/code/nginx
+#    working_dir: /code
+#    entrypoint: /bin/sh /code/entrypoint.sh
+
+#  nginx:
+#    image: nginx:1.19.0-alpine
+#    #build: ./nginx
+#    depends_on:
+#      - app
+#    ports:
+##      - "81:80"
+#       - "80:80"
+#    volumes:
+#      - static:/code/static
+#      - media:/code/media
+#      - nginx_conf:/etc/nginx/conf.d/:ro
+#
+#    restart: always
+
+#  redis:
+#    image: redis:7.0.0-alpine3.15
+#    ports:
+#      - "6379:6379"
+#    depends_on:
+#      - db
+
+
+#  celery:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.celery
+#    environment:
+#      PG_USER: postgres
+#      PG_PASSWORD: postpass
+#      PG_NAME: orders_diploma
+#      PG_HOST: db
+#      PG_PORT: 5432
+#      SMTP_SERVER: smtp4dev
+#      SMTP_PORT: 25
+#      REDIS_HOST: redis
+#    depends_on:
+#      - redis
+#    command: celery worker --app=orders --loglevel=info
+#
+#  celery:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile.celery
+#    environment:
+#      PG_DSN: "postgresql://app:1234@db:5432/netology_flask"
+#      CELERY_BROKER: "redis://redis:6379/1"
+#      CELERY_BACKEND: "redis://redis:6379/2"
+#      SMTP_SERVER: "smtp4dev"
+#      SMTP_PORT: "25"
+#    container_name: celery
+#    depends_on:
+#      - redis
+#    volumes:
+#      - ./app:/app
+
+
+
