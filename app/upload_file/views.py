@@ -1,4 +1,6 @@
-from django.shortcuts import render
+
+
+
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.response import Response
@@ -23,7 +25,11 @@ class UploadViewSet(GenericViewSet):
         file = serializer.save()
         file.save()
         content_type = request.FILES['file'].content_type
-        process_file.delay(file.id)
+        print(content_type)
+
+
+
+        process_file.delay(file.id, content_type)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     @action(detail=False, methods=['get'])

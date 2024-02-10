@@ -9,7 +9,6 @@ volumes:
   static:
   media:
   nginx_conf:
-  smtp4dev-data:
   db_volume:
 
 services:
