@@ -82,11 +82,11 @@ WSGI_APPLICATION = 'app.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'upload_data',
-        'HOST': '127.0.0.1',
-        'PORT': '5431',
-        'USER': 'postgres',
-        'PASSWORD': 'postpass',
+        'NAME': os.getenv("PG_NAME", default='upload_data'),
+        'HOST': os.getenv("PG_HOST", default='127.0.0.1'),
+        'PORT': os.getenv("PG_PORT", default='5431'),
+        'USER': os.getenv("PG_USER", default='postgres'),
+        'PASSWORD': os.getenv("PG_PASSWORD", default='postpass'),
     }
 }
 
