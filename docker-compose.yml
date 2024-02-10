@@ -30,34 +30,29 @@ services:
     #    aliases:
     #      - db-main
 
-#  app:
-#    build:
-#      context: .
-#    environment:
-#      PG_USER: postgres
-#      PG_PASSWORD: postpass
-#      PG_NAME: orders_diploma
-#      PG_HOST: db
-#      PG_PORT: 5432
-#      SMTP_SERVER: smtp4dev
-#      SMTP_PORT: 25
-#      REDIS_HOST: redis
-#    ports:
-#      - "8080:8080"
-#    depends_on:
-#      - db
-#      - smtp4dev
-#      - celery
-
-
-#    restart:
-#      always
-#    volumes:
-#      - static:/code/static
-#      - media:/code/media
-#      - nginx_conf:/code/nginx
-#    working_dir: /code
-#    entrypoint: /bin/sh /code/entrypoint.sh
+  app:
+    build:
+      context: .
+    environment:
+      PG_USER: postgres
+      PG_PASSWORD: postpass
+      PG_NAME: upload_data
+      PG_HOST: db
+      PG_PORT: 5432
+      REDIS_HOST: redis
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+      - celery
+    restart:
+      always
+    volumes:
+      - static:/code/static
+      - media:/code/media
+      #- nginx_conf:/code/nginx
+    working_dir: /code
+    entrypoint: /bin/sh /code/entrypoint.sh
 
 #  nginx:
 #    image: nginx:1.19.0-alpine
