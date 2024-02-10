@@ -16,7 +16,8 @@ class UploadViewSet(GenericViewSet):
     serializer_class = FileSerializer
     queryset = File.objects.all()
 
-    def create(self, request, *args, **kwargs):
+    @action(detail=False, methods=['post'])
+    def upload(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         file = serializer.save()

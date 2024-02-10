@@ -6,7 +6,7 @@ from .views  import UploadViewSet
 app_name = 'upload_file'
 
 r = DefaultRouter()
-r.register("upload", UploadViewSet, basename="products")
+r.register("", UploadViewSet)
 
 urlpatterns = [
     path('', include(r.urls)),
