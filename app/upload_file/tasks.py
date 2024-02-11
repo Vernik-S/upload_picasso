@@ -1,3 +1,5 @@
+from random import choice
+
 from celery import shared_task
 from app.celery_settings import app
 
@@ -18,6 +20,16 @@ def process_file(file_id, content_type = None):
         image = Image.open(file_name)
         inverted_image = PIL.ImageOps.invert(image)
         inverted_image.save(file_name)
+    elif content_type in ['text/plain']:
+        new_lines = []
+        with open(file.file.path, ) as f:
+            for line in f:
+                randomized_line = ''.join(choice((str.upper, str.lower))(char) for char in line)
+                print(randomized_line)
+                new_lines.append(randomized_line)
+        with open(file.file.path, "w") as f:
+            f.writelines(new_lines)
+
 
 
 
