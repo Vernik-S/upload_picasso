@@ -94,6 +94,24 @@ services:
       - redis
     command: celery worker --app=app --loglevel=info
 
+  celery_test:
+      build:
+        context: .
+        dockerfile: Dockerfile.celery
+      environment:
+        PG_USER: postgres
+        PG_PASSWORD: postpass
+        PG_NAME: test_upload_data
+        PG_HOST: db
+        PG_PORT: 5432
+        REDIS_HOST: redis
+      volumes:
+        - static:/code/static
+        - media:/code/media
+      depends_on:
+        - redis
+      command: celery worker --app=app --loglevel=info
+
 
 
 
